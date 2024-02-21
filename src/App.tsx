@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Cart, Star as StarFill } from "akar-icons";
 import PurchaseStepCard from "./components/PurchaseCard"; 
 import Slider from "react-slick";
