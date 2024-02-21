@@ -11,7 +11,7 @@ const PurchaseStepCard: React.FC<PurchaseStepProps> = ({ stepNumber, title, desc
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Triggering the animation when the component mounts
+
     setIsVisible(true);
   }, []);
 
