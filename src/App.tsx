@@ -7,7 +7,6 @@ import "slick-carousel/slick/slick-theme.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useToast } from "@chakra-ui/react";
-import bgHero from "/bg-hero.png";
 import Typical from "react-typical";
 interface Product {
   id: number;
@@ -72,7 +71,6 @@ const purchaseSteps = [
 ];
 
 const App: React.FC = () => {
-  const toast = useToast();
 
   useEffect(() => {
     AOS.init({
