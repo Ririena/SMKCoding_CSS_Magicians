@@ -1,58 +1,59 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Cart, Star as StarFill } from "akar-icons";
-import PurchaseStepCard from "./components/PurchaseCard"; 
+import PurchaseStepCard from "./components/PurchaseCard";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
 import AOS from "aos";
 import "aos/dist/aos.css";
-
+import { useToast } from "@chakra-ui/react";
+import bgHero from "/bg-hero.png";
+import Typical from "react-typical";
 interface Product {
   id: number;
   name: string;
   description: string;
   image: string;
   defaultRating: number;
+  price: number;
+  tags?: string[];
 }
 
-// Product Kopi
 const products: Product[] = [
   {
     id: 1,
     name: "Kopi Arabika",
     description: "Kopi dengan rasa yang lembut dan aroma yang khas.",
-    image:
-      "https://vibiznews.com/wp-content/uploads/2020/07/coffee-e1697784738839.jpg",
-    defaultRating: 3, 
+    image: "/product-1.png",
+    defaultRating: 3,
+    price: 21,
+    tags: ["Hot"],
   },
   {
     id: 2,
     name: "Kopi Robusta",
-    description:
-      "Kopi dengan rasa yang kuat dan aroma yang pekat serta wangi.",
-    image:
-      "https://cdn0-production-images-kly.akamaized.net/k4d2p1w2MBf9YYuySB6SjZVt3rs=/1280x720/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/3115289/original/055237000_1588144974-coffee-6125e319.jpg",
-    defaultRating: 4, 
+    description: "Kopi dengan rasa yang kuat dan aroma yang pekat serta wangi.",
+    image: "/product-2.png",
+    defaultRating: 4,
+    price: 24,
+    tags: ["Cold"],
   },
   {
     id: 3,
     name: "Kopi Piccolo",
-    description:
-      "Kopi langka dengan rasa yang unik dan aroma yang istimewa.",
-    image:
-      "https://i.pinimg.com/564x/86/71/d8/8671d85f66240856514b5637eeaf7051.jpg",
+    description: "Kopi langka dengan rasa yang unik dan aroma yang istimewa.",
+    image: "/product-3.png",
     defaultRating: 5,
+    price: 25,
+    tags: ["Hot"],
   },
 ];
 
-// Step By Step Beli Cihuy
 const purchaseSteps = [
   {
     stepNumber: 1,
     title: "Pilih Produk",
-    description:
-      "Pilih produk kopi yang ingin Anda beli dari daftar di atas.",
+    description: "Pilih produk kopi yang ingin Anda beli dari daftar di atas.",
     image: "/service-1.png",
   },
   {
@@ -65,13 +66,14 @@ const purchaseSteps = [
   {
     stepNumber: 3,
     title: "Konsumsi Kopi",
-    description:
-      "Nikmati segarnya kopi berkualitas di mana pun Anda berada.",
+    description: "Nikmati segarnya kopi berkualitas di mana pun Anda berada.",
     image: "/service-3.png",
   },
 ];
 
 const App: React.FC = () => {
+  const toast = useToast();
+
   useEffect(() => {
     AOS.init({
       duration: 1000,
@@ -110,18 +112,34 @@ const App: React.FC = () => {
   };
 
   return (
-    <div>
+    <>
       <section
         className="hero-section py-5"
-        style={{ backgroundColor: "#FFA500", color: "#FFFFFF" }}
+        style={{
+          backgroundImage: `url(/bg-hero.png)`,
+          backgroundColor: "#F6ebda",
+          color: "#FFFFFF",
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+        }}
         data-aos="fade-up"
       >
+        <div className="position-relative">
+          <img src="/bg-hero.png" className="position-absolute top-0 end-0" />
+        </div>
         <div className="container">
-          <h2 className="m-4 text-center">Product Populer</h2>
+          <h2 className="m-4 text-black fw-bold">
+          <Typical
+              steps={["Product", 5000, "Product Populer", 500]}
+              loop={Infinity}
+              wrapper="p"
+            />
+          </h2>
           <div
-            className="card p-5 mb-3 border"
+            className="card p-5 mb-3 border roundedss"
             style={{ backgroundColor: "#F8F9FA", color: "#000000" }}
           >
+           
             <div className="row">
               <Slider className="text-black d-grid gap-4" {...productSettings}>
                 {products.map((product) => (
@@ -143,7 +161,7 @@ const App: React.FC = () => {
         data-aos="fade-left"
       >
         <div className="container">
-          <h2 className="m-4 text-center">Cara Pembelian Servis</h2>
+          <h2 className="m-4 fw-bold">How To Use Delivery Service</h2>
           <div className="row">
             {purchaseSteps.map((step) => (
               <div key={step.stepNumber} className="col-md-4">
@@ -158,12 +176,34 @@ const App: React.FC = () => {
           </div>
         </div>
       </section>
-    </div>
+
+      <footer
+        className="text-center text-black fw-bold py-3"
+        style={{
+          backgroundColor: "#F6ebda",
+          color: "#FFFFFF",
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+        }}
+      >
+        Made by Ariena with love❤️
+      </footer>
+    </>
   );
 };
 
 const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
-  const [rating, setRating] = React.useState<number>(product.defaultRating); 
+  const [rating, setRating] = React.useState<number>(product.defaultRating);
+
+  const toast = useToast();
+  function notify() {
+    toast({
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+      title: "Ditambahkan Ke Keranjang Local Storage",
+    });
+  }
 
   const handleClick = (index: number) => {
     setRating(index + 1);
@@ -180,10 +220,25 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
       <div className="card-body">
         <h5 className="card-title">{product.name}</h5>
         <p className="card-text">{product.description}</p>
+        <h3 className="card-text fw-bold">{product.price} K</h3>
         <div className="d-flex justify-content-between align-items-center">
-          <div>
+          {product.tags && (
+            <div>
+              {product.tags.map((tag, index) => (
+                <span
+                  key={index}
+                  className="badge bg-warning "
+                  style={{ cursor: "pointer" }}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+          <div className="stars-container">
             {Array.from({ length: 5 }, (_, index) => (
               <StarFill
+                className=""
                 key={index}
                 size={24}
                 style={{
@@ -194,13 +249,16 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
               />
             ))}
           </div>
-          <button className="btn btn-primary rounded-pill d-flex align-items-center">
+          <button
+            onClick={notify}
+            className="btn btn-warning rounded-pill d-flex align-items-center"
+          >
             <Cart
               strokeWidth={2}
               size={24}
+              color="white"
               style={{ verticalAlign: "middle" }}
             />
-            <span className="ms-2">Add to Cart</span>
           </button>
         </div>
       </div>
