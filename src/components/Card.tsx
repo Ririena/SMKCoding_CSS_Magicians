@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import { useState,} from "react";
 import { Cart, Star as StarFill } from "akar-icons";
 import "../assets/Style/components/Card.scss";
 interface Product {
