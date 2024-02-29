@@ -1,0 +1,65 @@
+// Card.scss
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px; 
+  }
+  
+  .product {
+    &.card {
+      border-radius: 40px;
+      border: none;
+      background-color: #fff;   
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+      transition: transform 0.3s ease;
+      position: relative;
+      
+      &:hover {
+        transform: translateY(-5px);
+      }
+  
+      .card-img-top {
+        max-width: 100%;
+        height: auto;
+        object-fit: cover;
+        border-radius: 40px 40px 0 0;
+
+      }
+  
+      .card-body {
+        padding: 20px;
+        .card-title {
+          font-size: 1.2rem;
+          margin-bottom: 10px;
+        }
+  
+        .card-text {
+          font-size: 1rem;
+          color: #555;
+        }
+  
+        .fw-bold {
+          font-weight: 700;
+        }
+  
+        .stars-container {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+        }
+      }
+  
+      .btn {
+        background-color: #FFA500;
+        color: #fff;
+        border: none;
+        border-radius: 50px;
+  
+        &:hover {
+          background-color: #FFD700;
+        }
+      }
+    }
+  }
+  

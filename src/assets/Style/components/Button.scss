@@ -1,0 +1,29 @@
+@import '../About.scss';
+.btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 9999px;
+    font: 600 12px;
+    background-color: $primary;
+    color: $accent;
+    transition: all 200ms ease-in-out;
+    text-decoration: none; //FIX UNDERLINE FROM HTML TAG
+    cursor: pointer;
+  
+    &:hover {
+      background-color: $accent;
+      color: $primary;
+    }
+  
+    &.order {
+      flex-shrink: 0;
+      line-height: 0;
+      padding: 0.8rem;
+      background-color: $accent;
+      color: white;
+  
+      &:hover {
+        background-color: #ffa450;
+      }
+    }
+}
